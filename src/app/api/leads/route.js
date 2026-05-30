@@ -9,6 +9,7 @@ const ALLOWED_KINDS = new Set([
   "legal_consult",
   "insurance_request",
   "tickets_request",
+  "kids_go_free",
 ]);
 const ALLOWED_STATUSES = new Set(["new", "in_progress", "done", "rejected"]);
 

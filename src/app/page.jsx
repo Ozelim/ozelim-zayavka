@@ -11,6 +11,7 @@ import {
   Scale,
   ShieldCheck,
   Plane,
+  Baby,
   CheckCircle2,
   Clock,
   XCircle,
@@ -37,9 +38,10 @@ import {
 import { toast } from "@/components/ui/toast";
 
 const KIND_META = {
-  tour_request:      { label: "Оставленные заявки", icon: Map },
+  tour_request:      { label: "Заявки направл.", icon: Map },
   tour_calculator:   { label: "Калькулятор туров",  icon: Calculator },
   tour_booking:      { label: "Записи туров",       icon: Map },
+  kids_go_free:      { label: "Kids Go Free",       icon: Baby },
   endowment:         { label: "Эндаумент",          icon: HandCoins },
   legal_consult:     { label: "Юр. услуги",         icon: Scale },
   insurance_request: { label: "Страхование",        icon: ShieldCheck },
@@ -110,6 +112,14 @@ function summary(lead) {
     }
     case "tour_booking":
       return d.tourTitle || lead.tour_title || "Тур";
+    case "kids_go_free": {
+      const dir = d.directionName || lead.resort_direction_name;
+      const adults = d.adults ?? 0;
+      const children = d.children ?? 0;
+      const parts = [dir];
+      if (adults || children) parts.push(`${adults}+${children} чел.`);
+      return parts.filter(Boolean).join(" · ") || "Kids Go Free";
+    }
     case "endowment":
       return d.investType || "Эндаумент";
     case "legal_consult":
